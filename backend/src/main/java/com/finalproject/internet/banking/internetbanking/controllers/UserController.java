@@ -34,9 +34,9 @@ public class UserController {
     public ResponseEntity<List<UserDTO>> getAllUsers() {
     List<User> users = userService.getAllUsers();
     List<UserDTO> userDTOs = users.stream()
-                                  .map(UserDTO::new) // supondo que você tenha um construtor que recebe User
+                                  .map(UserDTO::new)
                                   .toList();
     return ResponseEntity.ok(userDTOs);
     }
-
+    
 }
