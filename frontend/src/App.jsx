@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import Header from './menu/Header';
 import PaginaInicial from './paginas/paginaCadastro/PaginaInicial';
-import PaginaTransacoes from './paginas/paginaTransacoes/paginaTransacoes';
+import PaginaSaque from './paginas/paginaSaque/paginaSaque';
 
 function App() {
   const [paginaAtiva, setPaginaAtiva] = useState('inicio');
 
   const renderizarPagina = () => {
     switch (paginaAtiva) {
-      case 'transacao':
-        return <PaginaTransacoes />;
+      case 'saque':
+        return <PaginaSaque />;
       case 'inicio':
       default:
         return <PaginaInicial />;
