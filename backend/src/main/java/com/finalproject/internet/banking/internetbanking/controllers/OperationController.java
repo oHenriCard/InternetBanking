@@ -24,7 +24,7 @@ public class OperationController {
 
     // Deposit
     @PostMapping("/deposito")
-    @Operation(summary="Realiza um deposito em uma conta.")
+    @Operation(summary = "Realiza um deposito em uma conta.")
     public ResponseEntity<CheckAccount> deposit(@Valid @RequestBody DepositDTO depositDTO) {
         CheckAccount updatedAccount = operationService.deposit(depositDTO.getAccountNum(), depositDTO.getValue());
         return ResponseEntity.ok(updatedAccount);
@@ -32,7 +32,7 @@ public class OperationController {
 
     // WithDraw
     @PostMapping("/saque")
-    @Operation(summary="Realiza um saque na conta.")
+    @Operation(summary = "Realiza um saque na conta.")
     public ResponseEntity<CheckAccount> withdraw(@Valid @RequestBody WithdrawDTO withDrawDTO) {
         CheckAccount updatedAccount = operationService.withdraw(withDrawDTO.getAccountNum(), withDrawDTO.getValue());
         return ResponseEntity.ok(updatedAccount);
@@ -40,9 +40,10 @@ public class OperationController {
 
     // Payment
     @PostMapping("/pagamento")
-    @Operation(summary="Realiza um pagamento a partir de uma conta.")
+    @Operation(summary = "Realiza um pagamento a partir de uma conta.")
     public ResponseEntity<CheckAccount> payment(@Valid @RequestBody PaymentDTO paymentDTO) {
-        CheckAccount updatedAccount = operationService.payment(paymentDTO.getAccountNum(), paymentDTO.getValue(), paymentDTO.getDescription());
+        CheckAccount updatedAccount = operationService.payment(paymentDTO.getAccountNum(), paymentDTO.getValue(),
+                paymentDTO.getDescription());
         return ResponseEntity.ok(updatedAccount);
     }
 }

@@ -33,11 +33,11 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUsers() {
-    List<User> users = userService.getAllUsers();
-    List<UserDTO> userDTOs = users.stream()
-                                  .map(UserDTO::new)
-                                  .toList();
-    return ResponseEntity.ok(userDTOs);
+        List<User> users = userService.getAllUsers();
+        List<UserDTO> userDTOs = users.stream()
+                .map(UserDTO::new)
+                .toList();
+        return ResponseEntity.ok(userDTOs);
     }
 
 }
