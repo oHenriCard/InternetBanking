@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.finalproject.internet.banking.internetbanking.dtos.UserDTO;
 import com.finalproject.internet.banking.internetbanking.entities.User;
 import com.finalproject.internet.banking.internetbanking.services.UserService;
-import io.swagger.v3.oas.annotations.Operation;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 
 @RestController
@@ -30,6 +30,7 @@ public class UserController {
         User newUser = userService.register(userDTO);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
+
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUsers() {
     List<User> users = userService.getAllUsers();
@@ -38,5 +39,5 @@ public class UserController {
                                   .toList();
     return ResponseEntity.ok(userDTOs);
     }
-    
+
 }

@@ -8,7 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 
-@Entity(name="usuarios")
+@Entity(name="users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,22 +25,14 @@ public class User {
 // CONSTRUCTORS
     public User() {
     }
-
-    public User(Long id, String name, String cpf, String email, String password, CheckAccount account) {
+    public User(Long id, String name, String cpf, String email, String password/*, TODO CheckAccount account*/) {
         this.id       = id;
         this.name     = name;
         this.cpf      = cpf;
         this.email    = email;
         this.password = password;
-        this.account  = account;
+        // TODO this.account  = account;
     }
-
-    // public User(UserDTO userDTO) {
-    //     this.name     = userDTO.getName();
-    //     this.cpf      = userDTO.getCpf();
-    //     this.email    = userDTO.getEmail();
-    //     this.password = userDTO.getPassword();
-    // }
 
 // GETTERS N SETTERS
     public Long getId() {
@@ -84,7 +76,5 @@ public class User {
     public void setAccount(CheckAccount account) {
         this.account = account;
     }
-
-    
 
 }

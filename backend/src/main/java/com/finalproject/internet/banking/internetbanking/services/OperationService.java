@@ -19,10 +19,7 @@ public class OperationService {
     private CheckAccountRepository accountRepository;
     @Autowired
     private OperationRepository    operationRepository;
-    // @Autowired
-    // private EmailNotificationService emailNotificationService;
-
-//METHODS
+// METHODS
     // Deposit
     @Transactional
     public CheckAccount deposit(String accountNum, BigDecimal value) {
@@ -38,7 +35,7 @@ public class OperationService {
         // emailNotificationService.sendTransactionEmail(conta.getUser(), "Depósito Realizado", valor, updatedAccount.getBalance());
         return updatedAccount;
     }
-    // WithDraw
+    // Withdraw
     @Transactional
     public CheckAccount withdraw(String accountNum, BigDecimal value) {
         CheckAccount account = accountRepository.findByAccountNum(accountNum)
@@ -52,6 +49,7 @@ public class OperationService {
         // emailNotificationService.sendTransactionEmail(account.getUser(), "Depósito Realizado.", valor, updatedAccount.getBalance());
         return updatedAccount;
     }
+
     // Payment
     @Transactional
     public CheckAccount payment(String accountNum, BigDecimal value, String description) {
@@ -68,9 +66,8 @@ public class OperationService {
         CheckAccount updatedAccount = accountRepository.save(account);
         // emailNotificationService.sendTransactionEmail(account.getUser(), "Pagamento realizado: " + description, value, updatedAccount.getBalance());
         return updatedAccount;
-
     }
-
+    // RegisterOperation
     private void registerOperation(CheckAccount account, Operation.type type, BigDecimal value, String description) {
         Operation operation = new Operation();
         operation.setAccount(account);
@@ -80,5 +77,4 @@ public class OperationService {
         operation.setDateTime(LocalDateTime.now());
         operationRepository.save(operation);
     }
-
 }

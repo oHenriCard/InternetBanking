@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public class WithDrawDTO {
+public class WithdrawDTO {
     @NotBlank(message = "O número da conta é obrigatória!")
     private String accountNum;
 

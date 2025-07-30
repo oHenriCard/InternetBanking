@@ -12,7 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
-@Entity(name="operacao")
+@Entity(name="Operation")
 public class Operation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,6 +72,4 @@ public class Operation {
     public void setAccount(CheckAccount account) {
         this.account = account;
     }
-
-
 }

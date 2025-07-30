@@ -1,18 +1,17 @@
 package com.finalproject.internet.banking.internetbanking.entities;
 
 import java.math.BigDecimal;
-import java.util.List;
 
-import jakarta.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
-@Entity(name="contacorrente")
+@Entity(name="CheckAccount")
 public class CheckAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,11 +21,11 @@ public class CheckAccount {
     private BigDecimal balance;
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonIgnore
     private User user;
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
-    private List<Operation> operations;
-
-// CONSTRUCTORS
+    //TODO @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    // private List<Operation> operations;
+// CONSTRUCTOR
     public CheckAccount() {
     }
     public CheckAccount(Long id, String accountNum, String branch, BigDecimal balance, User user) {
@@ -36,13 +35,6 @@ public class CheckAccount {
         this.balance    = balance;
         this.user       = user;
     }
-    // public CheckAccount(CheckAccountDTO accountDTO) {
-    //     this.id      = accountDTO.id();
-    //     this.account = accountDTO.account();
-    //     this.branch  = accountDTO.branch();
-    //     this.balance = accountDTO.balance();
-    //     this.user    = accountDTO.user();
-    // }
 
 // GETTERS N SETTERS
     public Long getId() {
@@ -55,8 +47,8 @@ public class CheckAccount {
     public String getAccountNum() {
         return this.accountNum;
     }
-    public void setAccountNum(String account) {
-        this.accountNum = account;
+    public void setAccountNum(String accountNum) {
+        this.accountNum = accountNum;
     }
 
     public String getBranch() {
@@ -79,4 +71,13 @@ public class CheckAccount {
     public void setUser(User user) {
         this.user = user;
     }
+
+    //TODO public List<Operation> getOperations() {
+    //     return this.operations;
+    // }
+    // public void setOperations(List<Operation> operations) {
+    //     this.operations = operations;
+    // }
+
+
 }

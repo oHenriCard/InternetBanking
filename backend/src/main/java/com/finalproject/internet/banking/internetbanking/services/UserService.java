@@ -18,9 +18,7 @@ import jakarta.transaction.Transactional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-    // @Autowired
-    // private EmailNotificationService EmailNotificationService;
-
+    
     public UserService (UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -43,7 +41,7 @@ public class UserService {
         // user.setRegDate(LocalDateTime.now());
 
         CheckAccount account = new CheckAccount();
-        account.setAccountNum(UUID.randomUUID().toString().substring(0, 8).toUpperCase());
+        account.setAccountNum(UUID.randomUUID().toString().substring(0, 8).replaceAll("\\D", ""));
         account.setBranch("0001");
         account.setBalance(BigDecimal.ZERO);
         account.setUser(user);
@@ -59,6 +57,5 @@ public class UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
-
 
 }

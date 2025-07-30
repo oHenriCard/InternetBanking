@@ -1,5 +1,7 @@
 package com.finalproject.internet.banking.internetbanking.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +12,6 @@ import com.finalproject.internet.banking.internetbanking.repositories.CheckAccou
 public class CheckAccountService {
     @Autowired
     private CheckAccountRepository accountRepository;
-
     public CheckAccountService (CheckAccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
@@ -18,5 +19,9 @@ public class CheckAccountService {
     public CheckAccount getByNum(String accountNum) {
         return accountRepository.findByAccountNum(accountNum)
             .orElseThrow(() -> new IllegalArgumentException("Conta com o número " + accountNum + " não encontrada."));
+    }
+
+    public List<CheckAccount> getAllAccounts() {
+        return accountRepository.findAll();
     }
 }
