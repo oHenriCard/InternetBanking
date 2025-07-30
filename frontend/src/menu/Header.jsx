@@ -15,7 +15,8 @@ function Header({ onNavigate }){
                     <li><a href='#' onClick={(e) => handleNavigationClick(e, 'inicio')}>Início</a></li>
                     <li><a href='#'>Extrato</a></li>
                     <li><a href='#' onClick={(e) => handleNavigationClick(e, 'saque')}>Saque</a></li>
-                    <li><a href='#'>Conta corrente</a></li>
+                    <li><a href='#' onClick={(e) => handleNavigationClick(e, 'deposito')}>Depósito</a></li>
+                    <li><a href='#'>Pagamento</a></li>
                 </ul>
             </nav>
         </header>

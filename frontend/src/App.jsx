@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import Header from './menu/Header';
-import PaginaInicial from './paginas/paginaCadastro/PaginaInicial';
+import PaginaInicial from './paginas/paginaCadastro/paginaInicial';
 import PaginaSaque from './paginas/paginaSaque/paginaSaque';
+import PaginaDeposito from './paginas/PaginaDeposito/paginaDeposito';
 
 function App() {
   const [paginaAtiva, setPaginaAtiva] = useState('inicio');
@@ -10,6 +11,8 @@ function App() {
     switch (paginaAtiva) {
       case 'saque':
         return <PaginaSaque />;
+      case 'deposito':
+        return <PaginaDeposito />;
       case 'inicio':
       default:
         return <PaginaInicial />;

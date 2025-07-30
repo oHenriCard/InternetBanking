@@ -1,0 +1,111 @@
+/* Estilos gerais para a página */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f4f7f6;
+  color: #333;
+}
+
+/* Container principal que centraliza o formulário */
+.transacoes-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* O card do formulário */
+.transacoes-form {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px;
+  box-sizing: border-box;
+}
+
+/* Título do formulário */
+.transacoes-form h1 {
+  text-align: center;
+  color: #451531;
+  margin-top: 0;
+  margin-bottom: 30px;
+  font-size: 28px;
+}
+
+/* Agrupador de label e input */
+.form-group {
+  margin-bottom: 25px;
+}
+
+/* Estilo das labels (textos acima dos campos) */
+.form-group label {
+  display: block;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+/* Estilo dos campos de preenchimento */
+.form-group input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efeito visual quando um campo está em foco (selecionado) */
+.form-group input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+/* Botão de envio */
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  background-color: #64b7cc; 
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #5fa0b1; 
+}
+
+.saldo-display {
+  width: 100%;
+  max-width: 450px;
+  background: #2c3e50; 
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px; 
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.saldo-display h3 {
+  margin: 0 0 10px 0;
+  font-weight: 500;
+  font-size: 18px;
+  opacity: 0.8; 
+}
+
+.saldo-display p {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 700;
+}

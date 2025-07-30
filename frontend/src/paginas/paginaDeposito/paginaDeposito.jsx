@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'; 
-import './paginaSaque.css';
+import './paginaDeposito.css';
 import axios from 'axios';
 
-function PaginaSaque() {
+function PaginaDeposito() {
   const [numeroConta, setNumeroConta] = useState('');
   const [valor, setValor] = useState('');
 
-  const handleSaque = async (event) => {
+  const handledepósito = async (event) => {
     event.preventDefault();
 
     const dataToSend = {
@@ -15,17 +15,17 @@ function PaginaSaque() {
     };
 
     try {
-      const response = await axios.post('http://localhost:8080/operacoes/saque', dataToSend);
+      const response = await axios.post('http://localhost:8080/operacoes/deposito', dataToSend);
       
       const updatedAccount = response.data;
 
-      alert(`Saque de ${formatarMoeda(parseFloat(valor))} realizado com sucesso!`);
+      alert(`Depósito de ${formatarMoeda(parseFloat(valor))} realizado com sucesso!`);
 
       setNumeroConta('');
       setValor('');
 
     } catch (error) {
-      console.error('Erro ao realizar o saque:', error);
+      console.error('Erro ao realizar o depósito:', error);
       if (error.response && error.response.data) {
         alert(`Erro: ${error.response.data.message || 'Ocorreu um problema.'}`);
       } else {
@@ -45,8 +45,8 @@ function PaginaSaque() {
   return (
     <div className="transacoes-container">
 
-      <form className="transacoes-form" onSubmit={handleSaque}>
-        <h1>Retirar dinheiro de conta</h1>
+      <form className="transacoes-form" onSubmit={handledepósito}>
+        <h1>Depositar dinheiro na conta</h1>
         
         <div className="form-group">
           <label htmlFor="conta">Conta</label>
@@ -74,10 +74,10 @@ function PaginaSaque() {
           />
         </div>
         
-        <button type="submit" className="submit-btn">Sacar</button>
+        <button type="submit" className="submit-btn">Depositar</button>
       </form>
     </div>
   );
 }
 
-export default PaginaSaque;
+export default PaginaDeposito;
