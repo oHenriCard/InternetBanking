@@ -1,0 +1,83 @@
+.cadastro-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  background-color: #f4f4f4;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+}
+
+.cadastro-form {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.cadastro-form h1 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #451531 !important;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #B3093F !important; 
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 30px;
+  background-color: #B3093F;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #451531; 
+}
+
+.welcome-message {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.welcome-message h2 {
+  font-size: 24px;
+  color: #451531;
+  margin-bottom: 10px;
+}
+
+.welcome-message p {
+  font-size: 16px;
+  color: #555;
+}
