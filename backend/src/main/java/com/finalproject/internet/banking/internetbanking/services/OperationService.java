@@ -19,6 +19,8 @@ public class OperationService {
     private CheckAccountRepository accountRepository;
     @Autowired
     private OperationRepository    operationRepository;
+    @Autowired
+    private EmailNotificationService emailNotificationService;
 // METHODS
     // Deposit
     @Transactional
@@ -32,7 +34,7 @@ public class OperationService {
         registerOperation(account, Operation.type.DEPOSIT, value, "Deposito em conta.");
 
         CheckAccount updatedAccount = accountRepository.save(account);
-        // emailNotificationService.sendTransactionEmail(conta.getUser(), "Depósito Realizado", valor, updatedAccount.getBalance());
+        emailNotificationService.sendTransactionEmail(updatedAccount.getUser(), "Depósito", value, updatedAccount.getBalance());
         return updatedAccount;
     }
     // Withdraw
@@ -46,7 +48,7 @@ public class OperationService {
         registerOperation(account, Operation.type.WITHDRAW, value, "Saque de conta.");
         
         CheckAccount updatedAccount = accountRepository.save(account);
-        // emailNotificationService.sendTransactionEmail(account.getUser(), "Depósito Realizado.", valor, updatedAccount.getBalance());
+        emailNotificationService.sendTransactionEmail(updatedAccount.getUser(), "Saque", value, updatedAccount.getBalance());
         return updatedAccount;
     }
 
@@ -64,7 +66,7 @@ public class OperationService {
         registerOperation(account, Operation.type.PAYMENT, value, description);
 
         CheckAccount updatedAccount = accountRepository.save(account);
-        // emailNotificationService.sendTransactionEmail(account.getUser(), "Pagamento realizado: " + description, value, updatedAccount.getBalance());
+        emailNotificationService.sendTransactionEmail(updatedAccount.getUser(), "Pagamento (" + description + ")", value, updatedAccount.getBalance());
         return updatedAccount;
     }
     // RegisterOperation

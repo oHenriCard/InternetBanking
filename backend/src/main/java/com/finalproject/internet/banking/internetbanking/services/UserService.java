@@ -18,7 +18,8 @@ import jakarta.transaction.Transactional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-    
+    @Autowired
+    private EmailNotificationService emailNotificationService;
     public UserService (UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -49,7 +50,7 @@ public class UserService {
         user.setAccount(account);
         User savedUser = userRepository.save(user);
 
-        // emailNotificationService.sendWelcomeEmail(savedUser);
+        emailNotificationService.sendWelcomeEmail(savedUser);
 
         return savedUser;
     }
