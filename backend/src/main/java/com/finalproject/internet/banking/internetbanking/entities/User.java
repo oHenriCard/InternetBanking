@@ -1,5 +1,12 @@
 package com.finalproject.internet.banking.internetbanking.entities;
 
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -7,9 +14,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity(name="users")
-public class User {
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+public class User implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long   id;
@@ -22,59 +37,36 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private CheckAccount account;
 
-// CONSTRUCTORS
-    public User() {
-    }
-    public User(Long id, String name, String cpf, String email, String password/*, TODO CheckAccount account*/) {
-        this.id       = id;
-        this.name     = name;
-        this.cpf      = cpf;
-        this.email    = email;
-        this.password = password;
-        // TODO this.account  = account;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        //TODO Define as "roles" (permissões) do utilizador.
+        //TODO Por agora, todos são ROLE_USER.
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
-// GETTERS N SETTERS
-    public Long getId() {
-        return this.id;
-    }
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public String getUsername() {
+        return this.email; //TODO O email será usado como login
     }
 
-    public String getName() {
-        return this.name;
-    }
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true; // A conta não expira
     }
 
-    public String getCpf() {
-        return this.cpf;
-    }
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true; // A conta não está bloqueada
     }
 
-    public String getEmail() {
-        return this.email;
-    }
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true; // As credenciais não expiram
     }
 
-    public String getPassword() {
-        return this.password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public CheckAccount getAccount() {
-        return this.account;
-    }
-    public void setAccount(CheckAccount account) {
-        this.account = account;
+    @Override
+    public boolean isEnabled() {
+        return true; // O utilizador está ativo
     }
 
 }

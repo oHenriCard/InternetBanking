@@ -26,7 +26,7 @@ public class UserController {
 
     @PostMapping
     @Operation(summary = "Cadastra um novo usuário e cria uma conta corrente automaticamente")
-    public ResponseEntity<User> cadastrarUsuario(@Valid @RequestBody UserDTO userDTO) {
+    public ResponseEntity<User> registerUser(@Valid @RequestBody UserDTO userDTO) {
         User newUser = userService.register(userDTO);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.finalproject.internet.banking.internetbanking.dtos.UserDTO;
@@ -18,6 +19,8 @@ import jakarta.transaction.Transactional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     //TODO @Autowired
     //TODO private EmailNotificationService emailNotificationService;
     public UserService (UserRepository userRepository) {
@@ -34,12 +37,11 @@ public class UserService {
         }
 
         User user = new User();
-        user.setName(userDTO.getName());
-        user.setCpf(userDTO.getCpf());
+        user.setName (userDTO.getName());
+        user.setCpf  (userDTO.getCpf());
         user.setEmail(userDTO.getEmail());
-        //user.setPasswordHash(password);
-        user.setPassword(userDTO.getPassword());
-        // user.setRegDate(LocalDateTime.now());
+        String passwordHash = passwordEncoder.encode(userDTO.getPassword());
+        user.setPassword(passwordHash);
 
         CheckAccount account = new CheckAccount();
         account.setAccountNum(UUID.randomUUID().toString().substring(0, 8).replaceAll("\\D", ""));

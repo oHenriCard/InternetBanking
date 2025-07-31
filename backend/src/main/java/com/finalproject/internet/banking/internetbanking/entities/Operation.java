@@ -11,8 +11,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity(name="Operation")
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Operation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,48 +36,5 @@ public class Operation {
 
     public enum type {
         DEPOSIT, WITHDRAW, PAYMENT, STATEMENT
-    }
-
-// GETTERS N SETTERS
-    public Long getId() {
-        return this.id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public type getType() {
-        return this.type;
-    }
-    public void setType(type type) {
-        this.type = type;
-    }
-
-    public BigDecimal getValue() {
-        return this.value;
-    }
-    public void setValue(BigDecimal value) {
-        this.value = value;
-    }
-
-    public LocalDateTime getDateTime() {
-        return this.dateTime;
-    }
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public CheckAccount getAccount() {
-        return this.account;
-    }
-    public void setAccount(CheckAccount account) {
-        this.account = account;
     }
 }
