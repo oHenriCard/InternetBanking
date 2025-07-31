@@ -1,32 +1,14 @@
-import { useState } from 'react';
-import Header from './menu/Header';
-import PaginaInicial from './paginas/paginaCadastro/paginaInicial';
-import PaginaSaque from './paginas/paginaSaque/paginaSaque';
-import PaginaDeposito from './paginas/PaginaDeposito/paginaDeposito';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Login from './paginas/login/login';
+import Cadastro from './paginas/cadastro/cadastro';
 
 function App() {
-  const [paginaAtiva, setPaginaAtiva] = useState('inicio');
-
-  const renderizarPagina = () => {
-    switch (paginaAtiva) {
-      case 'saque':
-        return <PaginaSaque />;
-      case 'deposito':
-        return <PaginaDeposito />;
-      case 'inicio':
-      default:
-        return <PaginaInicial />;
-    }
-  };
-
   return (
-    <>
-      <Header onNavigate={setPaginaAtiva} />
-
-      <main style={{ padding: '20px' }}>
-        {renderizarPagina()}
-      </main>
-    </>
+    <Routes>
+      <Route path="/" element={<Navigate to="/login" />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/cadastro" element={<Cadastro />} />
+    </Routes>
   );
 }
 
