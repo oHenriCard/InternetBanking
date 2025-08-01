@@ -12,25 +12,25 @@ import org.springframework.web.bind.annotation.RestController;
 import com.finalproject.internet.banking.internetbanking.entities.User;
 import com.finalproject.internet.banking.internetbanking.services.JWTokenService;
 
-record AuthenticationData(String cpf, String password) {}
+record AuthenticationData(String email, String password) {}
 record JWTTokenData(String token) {}
 
 @RestController
 @RequestMapping("/login")
-public class AuthenticationController {
-    @Autowired
-    private AuthenticationManager manager;
+public class AutenticacaoController {
 
     @Autowired
-    private JWTokenService tokenService;
+    private AuthenticationManager manager; // Injeta o AuthenticationManager [cite: 17]
+
+    @Autowired
+    private JWTokenService tokenService; // Serviço que criaremos no próximo passo
 
     @PostMapping
-    public ResponseEntity<JWTTokenData> makeLogin(@RequestBody AuthenticationData datas) {
-        var authenticationToken = new UsernamePasswordAuthenticationToken(datas.cpf(), datas.password());
+    public ResponseEntity<JWTTokenData> makeLogin (@RequestBody AuthenticationData data) {
+        var authenticationToken = new UsernamePasswordAuthenticationToken(data.email(), data.password());
         var authentication = manager.authenticate(authenticationToken);
-        var tokenJWT = tokenService.generateToken((User) authentication.getPrincipal()); 
+        var tokenJWT = tokenService.generateToken((User) authentication.getPrincipal());
 
         return ResponseEntity.ok(new JWTTokenData(tokenJWT));
     }
-
 }

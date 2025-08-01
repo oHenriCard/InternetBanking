@@ -1,11 +1,15 @@
 package com.finalproject.internet.banking.internetbanking.services;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.finalproject.internet.banking.internetbanking.dtos.OperationDTO;
 import com.finalproject.internet.banking.internetbanking.entities.CheckAccount;
 import com.finalproject.internet.banking.internetbanking.entities.Operation;
 import com.finalproject.internet.banking.internetbanking.repositories.CheckAccountRepository;
@@ -69,6 +73,17 @@ public class OperationService {
         //TODO emailNotificationService.sendTransactionEmail(updatedAccount.getUser(), "Pagamento (" + description + ")", value, updatedAccount.getBalance());
         return updatedAccount;
     }
+
+    // Statement
+    public List<OperationDTO> getStatement(String accountNum, LocalDate startDate, LocalDate endDate) {
+        List<Operation> operations = operationRepository.findByAccountAccountNumOrderByDateTimeDesc(accountNum);
+        return operations.stream()
+                .filter(op -> (startDate == null || op.getDateTime().toLocalDate().isAfter(startDate.minusDays(1))))
+                .filter(op -> (endDate == null || op.getDateTime().toLocalDate().isBefore(endDate.plusDays(1))))
+                .map(OperationDTO::new)
+                .collect(Collectors.toList());
+    }
+    
     // RegisterOperation
     private void registerOperation(CheckAccount account, Operation.type type, BigDecimal value, String description) {
         Operation operation = new Operation();

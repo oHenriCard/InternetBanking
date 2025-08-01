@@ -1,13 +1,21 @@
 package com.finalproject.internet.banking.internetbanking.controllers;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.finalproject.internet.banking.internetbanking.dtos.DepositDTO;
+import com.finalproject.internet.banking.internetbanking.dtos.OperationDTO;
 import com.finalproject.internet.banking.internetbanking.dtos.PaymentDTO;
 import com.finalproject.internet.banking.internetbanking.dtos.WithdrawDTO;
 import com.finalproject.internet.banking.internetbanking.entities.CheckAccount;
@@ -45,5 +53,16 @@ public class OperationController {
         CheckAccount updatedAccount = operationService.payment(paymentDTO.getAccountNum(), paymentDTO.getValue(),
                 paymentDTO.getDescription());
         return ResponseEntity.ok(updatedAccount);
+    }
+
+    // Statement
+    @GetMapping("/extrato/{accountNum}")
+    public ResponseEntity<List<OperationDTO>> getStatement(
+            @PathVariable String accountNum,
+            @RequestParam(value = "dataInicio", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataInicio,
+            @RequestParam(value = "dataFim", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataFim) {
+        
+        List<OperationDTO> statement = operationService.getStatement(accountNum, dataInicio, dataFim);
+        return ResponseEntity.ok(statement);
     }
 }
