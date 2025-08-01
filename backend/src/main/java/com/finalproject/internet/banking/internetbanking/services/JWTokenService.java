@@ -35,4 +35,17 @@ public class JWTokenService {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
 
+    public String getSubject(String tokenJWT) {
+    try {
+        Algorithm algoritmo = Algorithm.HMAC256(secret);
+        return JWT.require(algoritmo)
+            .withIssuer("Internet Banking API") // O mesmo emissor usado na geração
+            .build()
+            .verify(tokenJWT) // Valida o token
+            .getSubject(); // Extrai o subject (email)
+    } catch (Exception exception) {
+        throw new RuntimeException("Token JWT inválido ou expirado!");
+    }
+}
+
 }

@@ -24,4 +24,6 @@ public class CheckAccountService {
     public List<CheckAccount> getAllAccounts() {
         return accountRepository.findAll();
     }
+
+
 }

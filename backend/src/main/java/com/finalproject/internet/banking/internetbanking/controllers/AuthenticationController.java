@@ -5,15 +5,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.finalproject.internet.banking.internetbanking.entities.User;
 import com.finalproject.internet.banking.internetbanking.services.JWTokenService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
-
-record AuthenticationData(String email, String password) {}
+record AuthenticationData(String cpf, String password) {}
 record JWTTokenData(String token) {}
 
 @RestController
@@ -27,7 +26,7 @@ public class AuthenticationController {
 
     @PostMapping
     public ResponseEntity<JWTTokenData> makeLogin(@RequestBody AuthenticationData datas) {
-        var authenticationToken = new UsernamePasswordAuthenticationToken(datas.email(), datas.password());
+        var authenticationToken = new UsernamePasswordAuthenticationToken(datas.cpf(), datas.password());
         var authentication = manager.authenticate(authenticationToken);
         var tokenJWT = tokenService.generateToken((User) authentication.getPrincipal()); 
 
