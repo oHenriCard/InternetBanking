@@ -2,6 +2,7 @@ package com.finalproject.internet.banking.internetbanking.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod; // Import necessário
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,22 +15,32 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                .csrf(csrf -> csrf.disable()) // Desabilita CSRF para APIs stateless [cite: 5, 145]
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // API não guarda estado [cite: 5, 146, 147]
-                .build();
+        return http.csrf(csrf -> csrf.disable())
+                   .sessionManagement(sess ->
+                                    sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                   // Adiciona a configuração de autorização de requisições
+                   .authorizeHttpRequests(auth -> auth
+                        // Permite acesso público ao endpoint de login
+                        .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                        // Permite acesso público aos endpoints do Swagger
+                        .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
+                        .requestMatchers(HttpMethod.GET , "/usuarios").permitAll()
+                        
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        // Exige autenticação para todas as outras requisições
+                        .anyRequest().authenticated()
+                   )
+                   .build();
     }
 
-    // Bean para que o Spring consiga injetar o AuthenticationManager [cite: 20, 21, 22, 23, 24]
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
 
-    // Bean para o Hashing de Senhas com BCrypt [cite: 26, 27]
+    // Bean para o Hashing de Senhas com BCrypt
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

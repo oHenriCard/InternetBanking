@@ -20,10 +20,10 @@ record JWTTokenData(String token) {}
 public class AutenticacaoController {
 
     @Autowired
-    private AuthenticationManager manager; // Injeta o AuthenticationManager [cite: 17]
+    private AuthenticationManager manager;
 
     @Autowired
-    private JWTokenService tokenService; // Serviço que criaremos no próximo passo
+    private JWTokenService tokenService;
 
     @PostMapping
     public ResponseEntity<JWTTokenData> makeLogin (@RequestBody AuthenticationData data) {
