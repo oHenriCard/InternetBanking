@@ -1,5 +1,8 @@
 package com.finalproject.internet.banking.internetbanking.config;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod; // Import necessário
@@ -11,10 +14,19 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import com.finalproject.internet.banking.internetbanking.config.security.JwtAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    @Autowired
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(csrf -> csrf.disable())
@@ -35,6 +47,7 @@ public class SecurityConfig {
                         // Exige autenticação para todas as outras requisições
                         .anyRequest().authenticated()
                    )
+                   .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                    .build();
     }
 
@@ -48,4 +61,30 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        
+        // Defina a URL do seu frontend. Use a porta correta!
+        // Exemplos: "http://localhost:3000" (React), "http://localhost:5173" (Vite), "http://localhost:4200" (Angular)
+        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
+        
+        // Permite todos os métodos HTTP padrão
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+        
+        // Permite todos os cabeçalhos. Importante para cabeçalhos como "Authorization" e "Content-Type"
+        configuration.setAllowedHeaders(List.of("*"));
+        
+        // Permite que credenciais (como cookies) sejam enviadas, se aplicável
+        configuration.setAllowCredentials(true);
+        
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        // Aplica esta configuração de CORS a todas as rotas da sua API
+        source.registerCorsConfiguration("/**", configuration);
+        
+        return source;
+    }
+
+    
 }
