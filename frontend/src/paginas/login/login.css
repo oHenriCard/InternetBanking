@@ -9,7 +9,7 @@
     min-height: 100vh;
     padding: 20px;
     
-    background-image: url('public/images/login-background.png'); 
+    background-image: url('images/login-background.png'); 
     background-size: cover;      
     background-position: center; 
     background-attachment: fixed; 
