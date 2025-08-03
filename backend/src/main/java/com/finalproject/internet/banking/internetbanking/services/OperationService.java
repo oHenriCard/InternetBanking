@@ -23,8 +23,8 @@ public class OperationService {
     private CheckAccountRepository accountRepository;
     @Autowired
     private OperationRepository    operationRepository;
-    //TODO @Autowired
-    //TODO private EmailNotificationService emailNotificationService;
+    @Autowired
+    private EmailNotificationService emailNotificationService;
 // METHODS
     // Deposit
     @Transactional
@@ -38,7 +38,7 @@ public class OperationService {
         registerOperation(account, Operation.type.DEPOSIT, value, "Deposito em conta.");
 
         CheckAccount updatedAccount = accountRepository.save(account);
-        //TODO emailNotificationService.sendTransactionEmail(updatedAccount.getUser(), "Depósito", value, updatedAccount.getBalance());
+        emailNotificationService.sendTransactionEmail(updatedAccount.getUser(), "Depósito", value, updatedAccount.getBalance());
         return updatedAccount;
     }
     // Withdraw
@@ -48,11 +48,13 @@ public class OperationService {
             .orElseThrow(() -> new IllegalArgumentException("Conta não encontrada."));
         if(value.compareTo(BigDecimal.ZERO) <= 0) 
             throw new IllegalArgumentException("O valor do saque precisa ser maior que zero.");
+        if(account.getBalance().compareTo(value) < 0)
+            throw new IllegalArgumentException("Saldo insuficiente para realizar o pagamento.");
         account.setBalance(account.getBalance().subtract(value));
         registerOperation(account, Operation.type.WITHDRAW, value, "Saque de conta.");
         
         CheckAccount updatedAccount = accountRepository.save(account);
-        //TODO emailNotificationService.sendTransactionEmail(updatedAccount.getUser(), "Saque", value, updatedAccount.getBalance());
+        emailNotificationService.sendTransactionEmail(updatedAccount.getUser(), "Saque", value, updatedAccount.getBalance());
         return updatedAccount;
     }
 
@@ -70,7 +72,7 @@ public class OperationService {
         registerOperation(account, Operation.type.PAYMENT, value, description);
 
         CheckAccount updatedAccount = accountRepository.save(account);
-        //TODO emailNotificationService.sendTransactionEmail(updatedAccount.getUser(), "Pagamento (" + description + ")", value, updatedAccount.getBalance());
+        emailNotificationService.sendTransactionEmail(updatedAccount.getUser(), "Pagamento (" + description + ")", value, updatedAccount.getBalance());
         return updatedAccount;
     }
 

@@ -23,7 +23,7 @@ public class EmailNotificationService {
         Map<String, String> payload = new HashMap<>();
         payload.put("to",  user.getEmail());
         payload.put("subject", "Bem-Vindo ao Internet Banking!");
-        payload.put("body", "Olá" + user.getName() + 
+        payload.put("body", "Olá " + user.getName() + 
                     "\nSua conta foi criada com sucesso." +
                     "\nAgência: " + user.getAccount().getBranch() +
                     "\nConta: " + user.getAccount().getAccountNum());
