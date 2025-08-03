@@ -1,18 +1,71 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../../header-login/header";
 import "./home.css";
+import { jwtDecode } from "jwt-decode"; 
 
 function Home() {
-  const [transacoes] = useState([
-    { id: 1, data: "2025-07-20", descricao: "Depósito", valor: 1500.0, tipo: "credito" },
-    { id: 2, data: "2025-07-22", descricao: "Supermercado", valor: -230.5, tipo: "debito" },
-    { id: 3, data: "2025-07-25", descricao: "Transferência Recebida", valor: 750.0, tipo: "credito" },
-    { id: 4, data: "2025-07-30", descricao: "Conta de Luz", valor: -180.0, tipo: "debito" },
-  ]);
-  const [agencia] = useState("0001");
-  const [conta] = useState("12345-6");
+  // Remova os dados estáticos
+  // const [transacoes, setTransacoes] = useState([...]); 
+  // const [agencia, setAgencia] = useState("0001");
+  // const [conta, setConta] = useState("12345-6");
 
-  const saldo = transacoes.reduce((acc, transacao) => acc + transacao.valor, 0);
+  const [transacoes, setTransacoes] = useState([]);
+  const [agencia, setAgencia] = useState("");
+  const [conta, setConta] = useState("");
+  const [saldo, setSaldo] = useState(0);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+
+        console.error("Nenhum token encontrado.");
+        setError("Autenticação necessária.");
+        return;
+      }
+
+      try {
+        
+        const contasResponse = await fetch('http://localhost:8080/contas', {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (!contasResponse.ok) throw new Error("Falha ao buscar contas.");
+
+        const todasContas = await contasResponse.json();
+        
+        const decodedToken = jwtDecode(token);
+        const userEmail = decodedToken.sub; 
+
+        const minhaConta = todasContas.find(c => c.user.email === userEmail);
+
+        if (!minhaConta) {
+            throw new Error("Conta para o usuário logado não encontrada.");
+        }
+
+        setAgencia(minhaConta.agency);
+        setConta(minhaConta.accountNum);
+        setSaldo(minhaConta.balance);
+        
+        const extratoResponse = await fetch(`http://localhost:8080/operacoes/extrato/${minhaConta.accountNum}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (!extratoResponse.ok) throw new Error("Falha ao buscar extrato.");
+
+        const extratoData = await extratoResponse.json();
+        setTransacoes(extratoData);
+
+      } catch (err) {
+        setError(err.message);
+        console.error(err);
+      }
+    };
+
+    fetchData();
+  }, []); 
+
 
   return (
     <div className="home-container">
@@ -36,6 +89,7 @@ function Home() {
 
         <div className="extrato">
           <h1>Extrato da Conta</h1>
+          {error && <p className="error-message">{error}</p>}
           <table className="extrato-tabela">
             <thead>
               <tr>
@@ -46,11 +100,11 @@ function Home() {
             </thead>
             <tbody>
               {transacoes.map((t) => (
-                <tr key={t.id} className={t.tipo}>
-                  <td>{t.data}</td>
-                  <td>{t.descricao}</td>
-                  <td className={t.tipo}>
-                    {t.valor.toLocaleString("pt-BR", {
+                <tr key={t.id} className={t.value > 0 ? "credito" : "debito"}>
+                  <td>{new Date(t.dateTime).toLocaleDateString()}</td>
+                  <td>{t.description}</td>
+                  <td className={t.value > 0 ? "credito" : "debito"}>
+                    {t.value.toLocaleString("pt-BR", {
                       style: "currency",
                       currency: "BRL",
                     })}

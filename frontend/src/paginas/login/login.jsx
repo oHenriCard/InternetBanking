@@ -26,8 +26,7 @@ function Login() {
                 const result = await response.json();
                 console.log('Login bem-sucedido:', result);
                 
-                // Salvar o token de autenticação (talvez seja necessário no futuro)
-                // localStorage.setItem('authToken', result.token);
+                localStorage.setItem('authToken', result.token);
                 
                 navigate('/home-page');
             } else {
