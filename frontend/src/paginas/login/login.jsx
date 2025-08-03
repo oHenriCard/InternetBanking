@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
-import './Login.css'; 
-import { Link } from 'react-router-dom';
+import './Login.css';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         setIsLoading(true);
         setError('');
-
         const loginData = { email, password };
-        
-        /*
+
         try {
-            const response = await fetch('http://localhost:8080/login', { // URL da sua API
+            const response = await fetch('http://localhost:8080/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(loginData),
@@ -26,9 +25,11 @@ function Login() {
             if (response.ok) {
                 const result = await response.json();
                 console.log('Login bem-sucedido:', result);
-                // Ex: Salvar token e redirecionar
+                
+                // Salvar o token de autenticação (talvez seja necessário no futuro)
                 // localStorage.setItem('authToken', result.token);
-                // window.location.href = '/dashboard'; 
+                
+                navigate('/home');
             } else {
                 const errorData = await response.json();
                 setError(errorData.message || 'E-mail ou senha inválidos.');
@@ -39,20 +40,6 @@ function Login() {
         } finally {
             setIsLoading(false);
         }
-        */
-        // ===================================================================
-        //  Remover quando integrar com o back-end
-        // ===================================================================
-        console.log('Dados que seriam enviados:', loginData);
-        setTimeout(() => {
-            if (email === 'usuario@teste.com' && password === 'senha123') {
-                alert('Login simulado com sucesso!');
-            } else {
-                setError('E-mail ou senha inválidos (dados de simulação).');
-            }
-            setIsLoading(false);
-        }, 1000);
-        // ===================================================================
     };
 
     return (
