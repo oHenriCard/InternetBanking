@@ -21,10 +21,11 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
-    //TODO @Autowired
-    //TODO private EmailNotificationService emailNotificationService;
-    public UserService (UserRepository userRepository) {
+    @Autowired
+    private EmailNotificationService emailNotificationService;
+    public UserService (UserRepository userRepository, EmailNotificationService emailNotificationService) {
         this.userRepository = userRepository;
+        this.emailNotificationService = emailNotificationService;
     }
 
     @Transactional
@@ -52,7 +53,7 @@ public class UserService {
         user.setAccount(account);
         User savedUser = userRepository.save(user);
 
-        //TODO emailNotificationService.sendWelcomeEmail(savedUser);
+        emailNotificationService.sendWelcomeEmail(savedUser);
 
         return savedUser;
     }
