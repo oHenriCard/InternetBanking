@@ -13,14 +13,22 @@ function Header() {
     navigate('/deposito')
   };
 
+  const handleNavigateToSaque = () => {
+    navigate('/saque')
+  }
+
+  const handleNavigateToPagamento = () => {
+    navigate('/pagamento')
+  }
+
   return (
     <header className="main-header">
       <h2>Bem-vindo (a)!</h2>
       <nav className="menu-opcoes">
         <button onClick={handleNavigateToHome}>Início</button>
         <button onClick={handleNavigateToDeposito}>Depósito</button>
-        <button>Saque</button>
-        <button>Pagamento</button>
+        <button onClick={handleNavigateToSaque}>Saque</button>
+        <button onClick={handleNavigateToPagamento}>Pagamento</button>
       </nav>
     </header>
   );
