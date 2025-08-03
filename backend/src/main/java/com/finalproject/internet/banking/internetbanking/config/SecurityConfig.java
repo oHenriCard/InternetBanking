@@ -26,7 +26,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         // Permite acesso público aos endpoints do Swagger
                         .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
-                        .requestMatchers(HttpMethod.GET , "/usuarios").permitAll()
+                        .requestMatchers(HttpMethod.GET,  "/usuarios").permitAll()
+                        .requestMatchers(HttpMethod.GET,  "/contas").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/operacoes/**").permitAll()
+                        .requestMatchers(HttpMethod.GET,  "/operacoes/**").permitAll()
                         
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         // Exige autenticação para todas as outras requisições

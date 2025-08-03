@@ -45,7 +45,8 @@ public class UserService {
         user.setPassword(passwordHash);
 
         CheckAccount account = new CheckAccount();
-        account.setAccountNum(UUID.randomUUID().toString().substring(0, 8).replaceAll("\\D", ""));
+        String digits = UUID.randomUUID().toString().replaceAll("\\D", "");
+        account.setAccountNum(digits.substring(0, 8));
         account.setBranch("0001");
         account.setBalance(BigDecimal.ZERO);
         account.setUser(user);
