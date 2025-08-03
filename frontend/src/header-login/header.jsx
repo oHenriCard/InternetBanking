@@ -15,11 +15,11 @@ function Header() {
 
   const handleNavigateToSaque = () => {
     navigate('/saque')
-  }
+  };
 
   const handleNavigateToPagamento = () => {
     navigate('/pagamento')
-  }
+  };
   
   return (
     <header className="main-header">
