@@ -3,6 +3,8 @@ package com.finalproject.internet.banking.internetbanking.config.security;
 
 import com.finalproject.internet.banking.internetbanking.repositories.UserRepository;
 import com.finalproject.internet.banking.internetbanking.services.JWTokenService;
+import com.finalproject.internet.banking.internetbanking.services.TokenDenyListService;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +27,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private TokenDenyListService tokenDenyListService;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
@@ -33,6 +38,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (tokenJWT != null) {
             // Se houver um token, valida-o e autentica o usuário
+            if (tokenDenyListService.isTokenDenied(tokenJWT)) {
+                // Se o token está na deny-list, rejeita a requisição
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return; // Interrompe o fluxo
+            }
             String subject = tokenService.getSubject(tokenJWT); // Você precisará criar este método no seu JWTokenService
             UserDetails user = userRepository.findByEmail(subject).orElse(null);
 
