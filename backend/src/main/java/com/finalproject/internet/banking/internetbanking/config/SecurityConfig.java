@@ -38,11 +38,6 @@ public class SecurityConfig {
                                      sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                    .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
-                        .requestMatchers(HttpMethod.GET,  "/usuarios").permitAll()
-                        .requestMatchers(HttpMethod.GET,  "/contas").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/operacoes/**").permitAll()
-                        .requestMatchers(HttpMethod.GET,  "/operacoes/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
                    )
