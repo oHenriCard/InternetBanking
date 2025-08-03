@@ -20,7 +20,7 @@ function Header() {
   const handleNavigateToPagamento = () => {
     navigate('/pagamento')
   }
-
+  
   return (
     <header className="main-header">
       <h2>Bem-vindo (a)!</h2>
