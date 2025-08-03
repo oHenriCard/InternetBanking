@@ -9,6 +9,8 @@ function Home() {
     { id: 3, data: "2025-07-25", descricao: "Transferência Recebida", valor: 750.0, tipo: "credito" },
     { id: 4, data: "2025-07-30", descricao: "Conta de Luz", valor: -180.0, tipo: "debito" },
   ]);
+  const [agencia] = useState("0001");
+  const [conta] = useState("12345-6");
 
   const saldo = transacoes.reduce((acc, transacao) => acc + transacao.valor, 0);
 
@@ -18,6 +20,11 @@ function Home() {
 
       <div className="home-content">
         <div className="saldo-container">
+          <div className="conta-info">
+            <span>Agência: {agencia}</span>
+            <span>Conta: {conta}</span>
+          </div>
+
           <h2>Saldo Atual</h2>
           <p className="saldo-valor">
             {saldo.toLocaleString("pt-BR", {

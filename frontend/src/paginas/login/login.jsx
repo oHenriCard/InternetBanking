@@ -29,7 +29,7 @@ function Login() {
                 // Salvar o token de autenticação (talvez seja necessário no futuro)
                 // localStorage.setItem('authToken', result.token);
                 
-                navigate('/home');
+                navigate('/home-page');
             } else {
                 const errorData = await response.json();
                 setError(errorData.message || 'E-mail ou senha inválidos.');
