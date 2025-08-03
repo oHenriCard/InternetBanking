@@ -4,10 +4,6 @@ import "./home.css";
 import { jwtDecode } from "jwt-decode"; 
 
 function Home() {
-  // Remova os dados estáticos
-  // const [transacoes, setTransacoes] = useState([...]); 
-  // const [agencia, setAgencia] = useState("0001");
-  // const [conta, setConta] = useState("12345-6");
 
   const [transacoes, setTransacoes] = useState([]);
   const [agencia, setAgencia] = useState("");
