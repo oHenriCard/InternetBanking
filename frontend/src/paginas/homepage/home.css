@@ -66,24 +66,20 @@
   color: var(--main-color);
 }
 
-.extrato-tabela {
-  width: 100%;
-  border-collapse: collapse;
+.extrato-tabela tr.credito {
+  background-color: #e8f5e9; 
 }
 
-.extrato-tabela th,
-.extrato-tabela td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid var(--border);
+.extrato-tabela tr.debito {
+  background-color: #ffebee; 
 }
 
-.extrato-tabela tr.credito td {
-  color: green;
+.extrato-tabela td.credito {
+  color: #1b5e20;
   font-weight: 600;
 }
 
-.extrato-tabela tr.debito td {
-  color: red;
+.extrato-tabela td.debito {
+  color: #c62828; 
   font-weight: 600;
 }
