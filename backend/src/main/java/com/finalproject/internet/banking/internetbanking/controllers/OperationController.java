@@ -60,7 +60,7 @@ public class OperationController {
     public ResponseEntity<List<OperationDTO>> getStatement(
             @PathVariable String accountNum,
             @RequestParam(value = "dataInicio", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataInicio,
-            @RequestParam(value = "dataFim", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataFim) {
+            @RequestParam(value = "dataFim", required = false)    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataFim) {
         
         List<OperationDTO> statement = operationService.getStatement(accountNum, dataInicio, dataFim);
         return ResponseEntity.ok(statement);

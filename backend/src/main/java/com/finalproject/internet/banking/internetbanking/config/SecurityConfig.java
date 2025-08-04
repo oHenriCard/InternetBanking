@@ -21,7 +21,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.finalproject.internet.banking.internetbanking.config.security.JwtAuthenticationFilter;
 
-import static org.springframework.security.config.Customizer.withDefaults; // Import necessário
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -35,11 +35,11 @@ public class SecurityConfig {
         return http.csrf(csrf -> csrf.disable())
                    .cors(withDefaults()) 
                    .sessionManagement(sess ->
-                                     sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                                      sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                    .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/logout").authenticated()
+                        .requestMatchers(HttpMethod.POST,  "/login").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers(HttpMethod.POST,  "/logout").authenticated()
                         .anyRequest().authenticated()
                    )
                    .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

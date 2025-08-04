@@ -18,12 +18,11 @@ record JWTTokenData(String token) {}
 @RestController
 @RequestMapping("/login")
 public class AutenticacaoController {
-
     @Autowired
     private AuthenticationManager manager;
 
     @Autowired
-    private JWTokenService tokenService;
+    private JWTokenService        tokenService;
 
     @PostMapping
     public ResponseEntity<JWTTokenData> makeLogin (@RequestBody AuthenticationData data) {

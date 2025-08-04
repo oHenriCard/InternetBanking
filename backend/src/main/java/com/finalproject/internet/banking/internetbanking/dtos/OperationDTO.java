@@ -20,5 +20,4 @@ public class OperationDTO {
         this.description = operation.getDescription();
         this.dateTime    = operation.getDateTime();
     }
-
 }

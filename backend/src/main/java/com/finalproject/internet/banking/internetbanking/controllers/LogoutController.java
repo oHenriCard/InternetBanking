@@ -18,14 +18,12 @@ public class LogoutController {
 
     @PostMapping
     public ResponseEntity<Void> logout(HttpServletRequest request) {
-        // Extrai o token do header "Authorization"
         final String authHeader = request.getHeader("Authorization");
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             final String token = authHeader.substring(7);
             tokenDenyListService.addToDenyList(token);
         }
-        
         return ResponseEntity.ok().build();
     }
 }

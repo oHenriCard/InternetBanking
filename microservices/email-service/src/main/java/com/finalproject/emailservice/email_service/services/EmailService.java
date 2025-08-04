@@ -21,10 +21,10 @@ public class EmailService {
     public void sendEmail(EmailDTO emailDTO) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(sender); // E-mail remetente
-            message.setTo(emailDTO.getTo()); // E-mail destinatário [cite: 42]
-            message.setSubject(emailDTO.getSubject()); // Assunto do e-mail [cite: 43]
-            message.setText(emailDTO.getBody()); // Corpo do e-mail [cite: 44]
+            message.setFrom(sender);
+            message.setTo(emailDTO.getTo());
+            message.setSubject(emailDTO.getSubject());
+            message.setText(emailDTO.getBody());
 
             mailSender.send(message);
             System.out.println("E-mail enviado com sucesso para: " + emailDTO.getTo());

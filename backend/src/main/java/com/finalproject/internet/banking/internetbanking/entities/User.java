@@ -49,24 +49,4 @@ public class User implements UserDetails{
         return this.email; //TODO O email será usado como login
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true; // A conta não expira
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true; // A conta não está bloqueada
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true; // As credenciais não expiram
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true; // O utilizador está ativo
-    }
-
 }

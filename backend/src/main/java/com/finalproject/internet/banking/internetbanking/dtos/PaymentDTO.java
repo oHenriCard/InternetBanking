@@ -5,7 +5,9 @@ import java.math.BigDecimal;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.Getter;
 
+@Getter
 public class PaymentDTO {
     @NotBlank(message = "O número da conta é obrigatório!")
     private String accountNum;
@@ -16,26 +18,4 @@ public class PaymentDTO {
     
     @NotNull(message = "Digite uma descrição.")
     private String description;
-
-// GETTERS N SETTERS
-    public String getAccountNum() {
-        return this.accountNum;
-    }
-    public void setAccountNum(String accountNum) {
-        this.accountNum = accountNum;
-    }
-
-    public BigDecimal getValue() {
-        return this.value;
-    }
-    public void setValue(BigDecimal value) {
-        this.value = value;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }
