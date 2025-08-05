@@ -18,7 +18,7 @@ import jakarta.transaction.Transactional;
 @Service
 public class UserService {
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository  userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired

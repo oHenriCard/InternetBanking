@@ -20,9 +20,9 @@ import jakarta.transaction.Transactional;
 @Service
 public class OperationService {
     @Autowired
-    private CheckAccountRepository accountRepository;
+    private CheckAccountRepository   accountRepository;
     @Autowired
-    private OperationRepository    operationRepository;
+    private OperationRepository      operationRepository;
     @Autowired
     private EmailNotificationService emailNotificationService;
 // METHODS
@@ -81,7 +81,7 @@ public class OperationService {
         List<Operation> operations = operationRepository.findByAccountAccountNumOrderByDateTimeDesc(accountNum);
         return operations.stream()
                 .filter(op -> (startDate == null || op.getDateTime().toLocalDate().isAfter(startDate.minusDays(1))))
-                .filter(op -> (endDate == null || op.getDateTime().toLocalDate().isBefore(endDate.plusDays(1))))
+                .filter(op -> (endDate   == null || op.getDateTime().toLocalDate().isBefore(endDate.plusDays(1))))
                 .map(OperationDTO::new)
                 .collect(Collectors.toList());
     }

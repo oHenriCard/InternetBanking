@@ -10,17 +10,35 @@ function Header() {
   };
 
   const handleNavigateToDeposito = () => {
-    navigate('/deposito')
+    navigate('/deposito');
   };
 
   const handleNavigateToSaque = () => {
-    navigate('/saque')
-  }
+    navigate('/saque');
+  };
 
   const handleNavigateToPagamento = () => {
-    navigate('/pagamento')
-  }
-  
+    navigate('/pagamento');
+  };
+
+  const handleLogout = async () => {
+    const token = localStorage.getItem('jwtToken');
+
+    try {
+      await fetch('http://localhost:8080/logout', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+    } catch (error) {
+      console.error("Erro ao tentar fazer logout no servidor:", error);
+    } finally {
+      localStorage.removeItem('jwtToken');
+      navigate('/login'); 
+    }
+  };
+
   return (
     <header className="main-header">
       <h2>Bem-vindo (a)!</h2>
@@ -29,6 +47,7 @@ function Header() {
         <button onClick={handleNavigateToDeposito}>Depósito</button>
         <button onClick={handleNavigateToSaque}>Saque</button>
         <button onClick={handleNavigateToPagamento}>Pagamento</button>
+        <button onClick={handleLogout} className="logout-button">Logout</button>
       </nav>
     </header>
   );

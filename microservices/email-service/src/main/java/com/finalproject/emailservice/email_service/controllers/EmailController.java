@@ -22,7 +22,6 @@ public class EmailController {
     @PostMapping
     public ResponseEntity<String> sendEmail(@RequestBody EmailDTO emailDTO) {
         emailService.sendEmail(emailDTO);
-        // Retorna uma resposta HTTP 200 (OK) com uma mensagem de sucesso
         return ResponseEntity.status(HttpStatus.OK).body("Solicitação de envio de e-mail recebida.");
     }
 }
