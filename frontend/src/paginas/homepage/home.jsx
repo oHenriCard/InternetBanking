@@ -40,7 +40,7 @@ function Home() {
             throw new Error("Conta para o usuário logado não encontrada.");
         }
 
-        setAgencia(minhaConta.agency);
+        setAgencia(minhaConta.branch);
         setConta(minhaConta.accountNum);
         setSaldo(minhaConta.balance);
         
