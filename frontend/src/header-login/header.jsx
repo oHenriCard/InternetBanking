@@ -31,6 +31,9 @@ function Header() {
           'Authorization': `Bearer ${token}`,
         },
       });
+
+    alert("Deslogado com sucesso!");
+
     } catch (error) {
       console.error("Erro ao tentar fazer logout no servidor:", error);
     } finally {
