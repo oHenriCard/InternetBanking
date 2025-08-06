@@ -39,8 +39,6 @@ public class User implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        //TODO Define as "roles" (permissões) do utilizador.
-        //TODO Por agora, todos são ROLE_USER.
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 

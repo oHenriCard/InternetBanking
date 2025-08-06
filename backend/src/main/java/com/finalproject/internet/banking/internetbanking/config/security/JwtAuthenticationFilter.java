@@ -1,4 +1,3 @@
-// Crie este novo arquivo em um pacote como 'com.finalproject.internet.banking.internetbanking.config.security'
 package com.finalproject.internet.banking.internetbanking.config.security;
 
 import com.finalproject.internet.banking.internetbanking.repositories.UserRepository;

@@ -35,6 +35,19 @@ public class JWTokenService {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
 
+    public Instant getExpirationDate(String tokenJWT) {
+        try {
+            Algorithm algoritmo = Algorithm.HMAC256(secret);
+            return JWT.require(algoritmo)
+                    .withIssuer("Internet Banking API")
+                    .build()
+                    .verify(tokenJWT)
+                    .getExpiresAtAsInstant();
+        } catch (JWTVerificationException exception){
+            return null; 
+        }
+    }
+
     public String getSubject(String tokenJWT) {
     try {
         Algorithm algoritmo = Algorithm.HMAC256(secret);

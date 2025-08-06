@@ -17,7 +17,7 @@ record JWTTokenData(String token) {}
 
 @RestController
 @RequestMapping("/login")
-public class AutenticacaoController {
+public class AuthenticationController {
     @Autowired
     private AuthenticationManager manager;
 
