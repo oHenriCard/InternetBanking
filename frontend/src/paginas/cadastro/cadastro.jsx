@@ -66,7 +66,7 @@ function Register() {
             }
 
         } catch (err) {
-            setErrors({ general: 'Falha na comunicação com o servidor. Tente novamente mais tarde.' });
+            setErrors({ general: 'Erro no cadastro. Tente novamente mais tarde.' });
             console.error('Erro no cadastro:', err);
         } finally {
             setIsLoading(false);

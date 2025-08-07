@@ -5,14 +5,16 @@ import { Link, useNavigate } from 'react-router-dom';
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+    
+    const [errors, setErrors] = useState({});
+    
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         setIsLoading(true);
-        setError('');
+        setErrors({}); 
         const loginData = { email, password };
 
         try {
@@ -26,15 +28,22 @@ function Login() {
                 const result = await response.json();
                 console.log('Login bem-sucedido:', result);
                 
-                localStorage.setItem('authToken', result.token);
+                localStorage.setItem('authToken', result.token); 
                 
                 navigate('/home-page');
             } else {
                 const errorData = await response.json();
-                setError(errorData.message || 'E-mail ou senha inválidos.');
+                
+                if (typeof errorData === 'object' && errorData !== null && errorData.message) {
+                    setErrors({ general: errorData.message || 'E-mail ou senha inválidos.' });
+                } else if (typeof errorData === 'object' && errorData !== null) {
+                    setErrors(errorData); 
+                } else {
+                    setErrors({ general: 'E-mail ou senha inválidos.' });
+                }
             }
         } catch (err) {
-            setError('Falha na comunicação com o servidor. Tente novamente.');
+            setErrors({ general: 'Falha na comunicação com o servidor. Tente novamente.' });
             console.error(err);
         } finally {
             setIsLoading(false);
@@ -59,6 +68,7 @@ function Login() {
                             required
                             disabled={isLoading}
                         />
+                        {errors.email && <span className="field-error-message">{errors.email}</span>}
                     </div>
                     
                     <div className="input-group">
@@ -72,9 +82,10 @@ function Login() {
                             required
                             disabled={isLoading}
                         />
+                        {errors.password && <span className="field-error-message">{errors.password}</span>}
                     </div>
                     
-                    {error && <div className="error-message">{error}</div>}
+                    {errors.general && <div className="error-message">{errors.general}</div>}
                     
                     <button type="submit" className="login-button" disabled={isLoading}>
                         {isLoading ? 'Entrando...' : 'Entrar'}
